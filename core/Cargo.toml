@@ -1,0 +1,90 @@
+[package]
+name = "sovereign-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+# Core dependencies from workspace
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+async-trait = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# WASM runtime - latest with all optimizations
+wasmtime = { version = "26.0", features = ["async", "parallel-compilation", "cache", "component-model"] }
+
+# Performance monitoring
+heim = { version = "0.1.0-rc.1", features = ["disk", "memory", "cpu", "host", "battery"] }
+sysinfo = "0.31"
+
+# Metrics and observability
+prometheus = { version = "0.13", features = ["process"] }
+opentelemetry = { version = "0.24", features = ["trace", "metrics"] }
+opentelemetry-prometheus = "0.17"
+opentelemetry-otlp = { version = "0.17", features = ["grpc-tonic", "metrics"] }
+
+# Configuration
+config = { version = "0.14", features = ["toml", "json", "yaml", "ini"] }
+clap = { version = "4.5", features = ["derive", "env"] }
+
+# Networking
+axum = { version = "0.7", features = ["macros", "ws", "http2"] }
+tower = { version = "0.5", features = ["full"] }
+tower-http = { version = "0.5", features = ["full"] }
+hyper = { version = "1.4", features = ["full"] }
+
+# Serialization
+bincode = "1.3"
+rmp-serde = "1.3"
+
+# Performance optimization
+rayon = "1.10"
+crossbeam = "0.8"
+parking_lot = "0.12"
+once_cell = "1.19"
+
+# Mobile-specific optimization
+[target.'cfg(target_os = "android")'.dependencies]
+jni = "0.21"
+android_logger = "0.14"
+
+[target.'cfg(target_os = "ios")'.dependencies]
+core-foundation = "0.9"
+objc = "0.2"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports", "async_tokio"] }
+proptest = "1.5"
+quickcheck = "1.0"
+tokio-test = "0.4"
+wiremock = "0.6"
+
+[[bin]]
+name = "sovereign-core"
+path = "src/bin/sovereign-core.rs"
+
+[lib]
+name = "sovereign_core"
+path = "src/lib.rs"
+
+[features]
+default = ["performance-monitoring", "metrics"]
+performance-monitoring = []
+metrics = []
+production = ["opentelemetry-otlp"]
+integration = []
+
+# Optimize for mobile targets
+[profile.release]
+lto = "fat"
+codegen-units = 1
+opt-level = 3
+strip = true
