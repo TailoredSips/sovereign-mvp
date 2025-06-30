@@ -1,0 +1,69 @@
+[workspace]
+members = [
+    "core",
+    "wasm-modules",
+    "performance-monitoring",
+    "benchmarking",
+    "p2p-network",
+    "ai-optimization",
+    "security",
+    "viral-growth",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["SOVEREIGN MVP Team"]
+license = "MIT"
+repository = "https://github.com/TailoredSips/sovereign-mvp"
+homepage = "https://sovereign-mvp.io"
+keywords = ["wasm", "mobile", "performance", "battery", "p2p"]
+categories = ["wasm", "embedded", "network-programming"]
+
+[workspace.dependencies]
+# Core async runtime - latest stable
+tokio = { version = "1.40", features = ["full"] }
+# Serialization - performance critical
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+# Logging and tracing - production grade
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+# Error handling - zero-cost abstractions
+anyhow = "1.0"
+thiserror = "1.0"
+# Async traits
+async-trait = "0.1"
+# Time handling
+chrono = { version = "0.4", features = ["serde"] }
+# UUID generation
+uuid = { version = "1.11", features = ["v4", "serde"] }
+
+[profile.release]
+# Maximum optimization for production
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true
+debug = false
+
+[profile.release-with-debug]
+inherits = "release"
+debug = true
+strip = false
+
+[profile.bench]
+inherits = "release"
+debug = true
+
+[profile.dev]
+# Faster compilation for development
+opt-level = 0
+debug = true
+split-debuginfo = "unpacked"
+
+[profile.test]
+opt-level = 2
+debug = true
