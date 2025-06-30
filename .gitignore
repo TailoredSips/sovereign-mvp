@@ -1,0 +1,132 @@
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+dist
+dist-ssr
+*.local
+
+# IDEs
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage/
+*.lcov
+.nyc_output
+
+# Production
+build/
+*.pid
+*.seed
+*.pid.lock
+
+# Benchmarking
+benches/target/
+criterion/
+
+# Performance monitoring
+influxdb-data/
+prometheus-data/
+grafana-data/
+
+# Temporary
+*.tmp
+*.temp
+.cache/
+
+# Security
+*.pem
+*.key
+*.cert
+*.p12
+
+# Documentation
+docs/_build/
+site/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Docker
+.dockerignore
+
+# Kubernetes
+*.kubeconfig
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Logs
+logs/
+*.log
+
+# Backups
+*.bak
+*.backup
+
+# WASM
+*.wasm
+!wasm-modules/pkg/*.wasm
+pkg/
+
+# PWA
+.parcel-cache/
+.cache/
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# Windows
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+
+# Linux
+.directory
+.Trash-*
+.nfs*
